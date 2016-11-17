@@ -44,6 +44,9 @@ public class EchoApplication {
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+
+        System.out.println("korehatest");
+
         System.out.println("event: " + event);
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
