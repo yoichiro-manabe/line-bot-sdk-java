@@ -18,6 +18,8 @@ package com.example.bot.spring.echo;
 
 import static java.util.Collections.singletonList;
 
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +33,7 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import retrofit2.Response;
 
 @SpringBootApplication
 @LineMessageHandler
@@ -45,12 +48,31 @@ public class EchoApplication {
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
 
-        System.out.println("korehatest");
-
         System.out.println("event: " + event);
+
+        Response<UserProfileResponse> response =
+                LineMessagingServiceBuilder
+                        .create(System.getenv("LINE_BOT_CHANNEL_TOKEN"))
+                        .build()
+                        .getProfile(event.getSource().getUserId())
+                        .execute();
+
+        String userName = "";
+
+        if (response.isSuccessful()) {
+            UserProfileResponse profile = response.body();
+            System.out.println(profile.getDisplayName());
+            System.out.println(profile.getPictureUrl());
+            System.out.println(profile.getStatusMessage());
+
+            userName = profile.getDisplayName();
+        } else {
+            System.out.println(response.code() + " " + response.message());
+        }
+
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(event.getMessage().getText()))))
+                                               singletonList(new TextMessage(userName + " さん " + event.getMessage().getText()))))
                 .get();
         System.out.println("Sent messages: " + apiResponse);
     }
@@ -59,4 +81,5 @@ public class EchoApplication {
     public void defaultMessageEvent(Event event) {
         System.out.println("event: " + event);
     }
+
 }
