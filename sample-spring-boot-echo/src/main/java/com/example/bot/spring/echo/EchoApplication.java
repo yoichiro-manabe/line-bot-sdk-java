@@ -78,18 +78,10 @@ public class EchoApplication {
         RequestMessage message = RequestMessage.create(event.getMessage());
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(userName + " さん" + message))))
+                                               singletonList(new TextMessage(userName + " さん" + message.message()))))
                 .get();
         System.out.println("Sent messages: " + apiResponse);
 
-//        final BotApiResponse apiResponse = lineMessagingClient
-//                .replyMessage(new ReplyMessage(event.getReplyToken(),
-//                                               singletonList(new TextMessage(userName + " さん " + event.getMessage().getText()))))
-//                .get();
-//        System.out.println("Sent messages: " + apiResponse);
-//
-//
-//
     }
 
     @EventMapping
