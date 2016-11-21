@@ -16,6 +16,8 @@ public class MessageParser {
     public void parse(TextMessageContent textMessageContent){
         String s = textMessageContent.getText();
 
+        System.out.println("request message:" + s);
+
         if(s.contains( RequestType.GET_ITEM_LIST.getDisplayString())){
             requestType= RequestType.GET_ITEM_LIST;
             messageParseValue = "";
@@ -25,11 +27,13 @@ public class MessageParser {
         if(s.contains(RequestType.GET_ITEM.getDisplayString())){
             requestType= RequestType.GET_ITEM;
             messageParseValue = s.split(":")[1];
+            return;
         }
 
         if(s.contains(RequestType.GET_ITEM_STOCK.getDisplayString())){
             requestType= RequestType.GET_ITEM_STOCK;
             messageParseValue = s.split(":")[1];
+            return;
         }
 
         requestType= RequestType.UNKNOWN;

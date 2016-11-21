@@ -76,6 +76,9 @@ public class EchoApplication {
         }
 
         RequestMessage message = RequestMessage.create(event.getMessage());
+
+        System.out.println("message:" + message.message());
+
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
                                                singletonList(new TextMessage(userName + " さん" + message.message()))))
