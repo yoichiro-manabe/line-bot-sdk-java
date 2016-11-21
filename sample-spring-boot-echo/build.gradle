@@ -18,4 +18,8 @@ apply plugin: 'spring-boot'
 
 dependencies {
     compile project(':line-bot-spring-boot')
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok-maven
+    compile group: 'org.projectlombok', name: 'lombok-maven', version: '1.16.10.0'
+
 }

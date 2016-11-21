@@ -18,6 +18,11 @@ package com.example.bot.spring.echo;
 
 import static java.util.Collections.singletonList;
 
+import com.example.bot.spring.echo.request.MessageParser;
+import com.example.bot.spring.echo.request.RequestMessage;
+import com.example.bot.spring.echo.reuse.ItemCollection;
+import com.example.bot.spring.echo.reuse.ItemService;
+import com.example.bot.spring.echo.request.RequestType;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +75,21 @@ public class EchoApplication {
             System.out.println(response.code() + " " + response.message());
         }
 
+        RequestMessage message = RequestMessage.create(event.getMessage());
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(userName + " さん " + event.getMessage().getText()))))
+                                               singletonList(new TextMessage(userName + " さん" + message))))
                 .get();
         System.out.println("Sent messages: " + apiResponse);
+
+//        final BotApiResponse apiResponse = lineMessagingClient
+//                .replyMessage(new ReplyMessage(event.getReplyToken(),
+//                                               singletonList(new TextMessage(userName + " さん " + event.getMessage().getText()))))
+//                .get();
+//        System.out.println("Sent messages: " + apiResponse);
+//
+//
+//
     }
 
     @EventMapping
