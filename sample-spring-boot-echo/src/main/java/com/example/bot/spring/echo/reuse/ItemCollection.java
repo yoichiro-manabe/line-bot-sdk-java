@@ -31,10 +31,11 @@ public class ItemCollection{
         String separator = System.getProperty("line.separator");
 
         StringBuilder sb = new StringBuilder();
-        for (Item item : items) {
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
             String template = "%s[%s] %d" + separator;
             sb.append(String.format(template, item.getItemName(), item.getClass(), item.getItemPrice()));
         }
-        return sb.toString();
+        return sb.toString().substring(0, 30) + "...などがあります。";
     }
 }

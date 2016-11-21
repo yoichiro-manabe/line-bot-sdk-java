@@ -19,7 +19,7 @@ public class ItemService {
 
     public Optional<Item> findItem(String itemName){
         return itemRepository.getItems().stream().filter(item -> {
-            return !StringUtils.isEmpty(itemName) && item.getItemCode()
+            return !StringUtils.isEmpty(itemName) && item.getItemName()
                                                          .contains(itemName);
         }).findFirst();
     }
