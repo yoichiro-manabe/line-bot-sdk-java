@@ -27,6 +27,7 @@ public abstract class RequestMessage {
         if(requestType == RequestType.GET_ITEM){
             return new GetItemRequest(parser.getMessageParseValue());
         }
+
         if(requestType == RequestType.GET_ITEM_STOCK){
             return new GetItemStockRequest(parser.getMessageParseValue());
         }
