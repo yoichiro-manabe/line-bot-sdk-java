@@ -21,7 +21,7 @@ public class GetItemStockRequest extends RequestMessage {
         Optional<Item> item = itemService.findItem(itemCode);
 
         if(item.isPresent()){
-            return item.toString();
+            return item.get().itemStockDisplay();
         }else{
             return "該当する商品情報が存在しませんでした。検索した商品コードは" + itemCode + "です。";
         }

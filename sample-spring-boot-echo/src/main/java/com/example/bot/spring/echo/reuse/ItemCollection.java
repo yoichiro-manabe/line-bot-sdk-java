@@ -33,9 +33,9 @@ public class ItemCollection{
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
-            String template = "%s[%s] %d" + separator;
-            sb.append(String.format(template, item.getItemName(), item.getClass(), item.getItemPrice()));
+            String template = "%s" + separator;
+            sb.append(String.format(template, item.getItemName()));
         }
-        return sb.toString().substring(0, 30) + "...などがあります。";
+        return sb.toString().substring(0, 50) + "...などがあります。";
     }
 }

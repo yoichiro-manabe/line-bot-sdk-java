@@ -24,7 +24,7 @@ public class GetItemRequest extends RequestMessage {
         Optional<Item> item = itemService.findItem(itemName);
 
         if(item.isPresent()){
-            return item.toString();
+            return item.get().itemDisplay();
         }else{
             return "該当する商品情報が存在しませんでした。";
         }
