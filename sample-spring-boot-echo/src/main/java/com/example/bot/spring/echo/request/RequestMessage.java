@@ -31,6 +31,10 @@ public abstract class RequestMessage {
             return new GetItemStockRequest(parser.getMessageParseValue());
         }
 
+        if(requestType == RequestType.UNKNOWN){
+            return new UnknowRequest();
+        }
+
         throw new IllegalStateException();
     }
 }
