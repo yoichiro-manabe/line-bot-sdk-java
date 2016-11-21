@@ -17,14 +17,30 @@ public class ItemService {
         itemRepository = new ItemRepository();
     }
 
-    public Optional<Item> findItem(String itemName){
-        return itemRepository.getItems().stream().filter(item -> {
-            return !StringUtils.isEmpty(itemName) && item.getItemName()
-                                                         .contains(itemName);
-        }).findFirst();
+    public Optional<Item> findItem(String value){
+        return itemRepository.getItems()
+                             .stream()
+                             .filter(item -> {
+                                 return (!StringUtils.isEmpty(value) && item.getItemName()
+                                                                            .contains(value)
+                                         || !StringUtils.isEmpty(value) && item.getItemCode()
+                                                                               .contains(value));
+                             })
+                             .findFirst();
     }
 
+    public Optional<Item> findItemByCode(String itemCode){
+        return itemRepository.getItems()
+                             .stream()
+                             .filter(item -> {
+                                 return !StringUtils.isEmpty(itemCode) && item.getItemCode()
+                                                                              .contains(itemCode);
+                             })
+                             .findFirst();
+    }
+
+
     public ItemCollection findAllItem(){
-        return new ItemCollection( itemRepository.getItems());
+        return new ItemCollection(itemRepository.getItems());
     }
 }
