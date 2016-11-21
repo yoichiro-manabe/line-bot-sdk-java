@@ -36,6 +36,7 @@ public class ItemCollection{
             String template = "%s" + separator;
             sb.append(String.format(template, item.getItemName()));
         }
-        return sb.toString().substring(0, 50) + "...などがあります。";
+        return sb.toString().substring(0, 50) + "...などがあります。"
+                + separator + "詳細はこちらで　=> https://reuse.netsea.jp/item/new";
     }
 }

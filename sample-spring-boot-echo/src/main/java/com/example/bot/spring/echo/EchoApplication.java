@@ -81,7 +81,7 @@ public class EchoApplication {
 
         final BotApiResponse apiResponse = lineMessagingClient
                 .replyMessage(new ReplyMessage(event.getReplyToken(),
-                                               singletonList(new TextMessage(userName + " さん" + message.message()))))
+                                               singletonList(new TextMessage(userName + " さん お問い合わせありがとうございます。" + message.message()))))
                 .get();
         System.out.println("Sent messages: " + apiResponse);
 
